@@ -6,7 +6,7 @@ Simple tensorflow-keras implementation of SKConv in [Selective Kernel Networks](
 
 ---
 
-![sknet](.\figs\sknet.jpg)
+![sknet](./figs/sknet.jpg)
 
 ## Notes
 

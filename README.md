@@ -12,7 +12,7 @@ I find there are many implementations of SKNet:
 
 - implus/SKNet [[official code](https://github.com/implus/SKNet)] [caffe]
 - pppLang/SKNet [[code](https://github.com/pppLang/SKNet)] [pytorch]
-- bravotty/*SKNet*-tensorflow [[code](https://github.com/bravotty/SKNet-tensorflow)] [tensorflow]
+- bravotty/SKNet-tensorflow [[code](https://github.com/bravotty/SKNet-tensorflow)] [tensorflow]
 -  ...
 
 By comparing with the official code, these third-party implementations have slight differences in details. So I present my own implementation in this repository.

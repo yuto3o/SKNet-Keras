@@ -4,13 +4,9 @@ Simple tensorflow-keras implementation of SKConv in [Selective Kernel Networks](
 
 ## Approach
 
----
-
 ![sknet](./figs/sknet.jpg)
 
 ## Notes
-
----
 
 I find there are many implementations of SKNet:
 

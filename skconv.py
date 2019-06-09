@@ -16,25 +16,25 @@ def SKConv(M=2, r=16, L=32, G=32, name='skconv'):
     xs = []
     for m in range(1, M+1):
       if G == 1:
-        x = layers.Conv2D(filters, 3, dilation_rate=m, padding='same',
+        _x = layers.Conv2D(filters, 3, dilation_rate=m, padding='same',
                           use_bias=False, name=name+'_conv%d'%m)(x)
       else:
         c = filters // G
-        x = layers.DepthwiseConv2D(3, dilation_rate=m, depth_multiplier=c, padding='same',
+        _x = layers.DepthwiseConv2D(3, dilation_rate=m, depth_multiplier=c, padding='same',
                                    use_bias=False, name=name+'_conv%d'%m)(x)
 
-        x = layers.Reshape([h, w, G, c, c], name=name+'_conv%d_reshape1'%m)(x)
-        x = layers.Lambda(lambda x: tf.reduce_sum(x, axis=-1),
+        _x = layers.Reshape([h, w, G, c, c], name=name+'_conv%d_reshape1'%m)(_x)
+        _x = layers.Lambda(lambda x: tf.reduce_sum(_x, axis=-1),
                           output_shape=[b, h, w, G, c],
-                          name=name+'_conv%d_sum'%m)(x)
-        x = layers.Reshape([h, w, filters],
-                           name=name+'_conv%d_reshape2'%m)(x)
+                          name=name+'_conv%d_sum'%m)(_x)
+        _x = layers.Reshape([h, w, filters],
+                           name=name+'_conv%d_reshape2'%m)(_x)
 
 
-      x = layers.BatchNormalization(name=name+'_conv%d_bn'%m)(x)
-      x = layers.Activation('relu', name=name+'_conv%d_relu'%m)(x)
+      _x = layers.BatchNormalization(name=name+'_conv%d_bn'%m)(_x)
+      _x = layers.Activation('relu', name=name+'_conv%d_relu'%m)(_x)
 
-      xs.append(x)
+      xs.append(_x)
 
     U = layers.Add(name=name+'_add')(xs)
     s = layers.Lambda(lambda x: tf.reduce_mean(x, axis=[1,2], keepdims=True),
@@ -93,14 +93,14 @@ if __name__ == '__main__':
   from tensorflow.keras.models import Model
 
   inputs = Input([None, None, 32])
-  x = SKConv(2, G=32)(inputs)
+  x = SKConv(3, G=1)(inputs)
 
   m = Model(inputs, x)
   m.summary()
 
   import numpy as np
 
-  X = np.random.random([1, 224, 224, 32]).astype(np.float32)
+  X = np.random.random([2, 224, 224, 32]).astype(np.float32)
   y = m.predict(X)
 
 

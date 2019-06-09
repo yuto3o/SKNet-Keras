@@ -102,11 +102,3 @@ if __name__ == '__main__':
 
   X = np.random.random([2, 224, 224, 32]).astype(np.float32)
   y = m.predict(X)
-
-
-
-
-
-
-
-

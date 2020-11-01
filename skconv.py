@@ -24,7 +24,7 @@ def SKConv(M=2, r=16, L=32, G=32, name='skconv'):
                                    use_bias=False, name=name+'_conv%d'%m)(x)
 
         _x = layers.Reshape([h, w, G, c, c], name=name+'_conv%d_reshape1'%m)(_x)
-        _x = layers.Lambda(lambda x: tf.reduce_sum(_x, axis=-1),
+        _x = layers.Lambda(lambda x: tf.reduce_sum(x, axis=-1),
                           output_shape=[b, h, w, G, c],
                           name=name+'_conv%d_sum'%m)(_x)
         _x = layers.Reshape([h, w, filters],
